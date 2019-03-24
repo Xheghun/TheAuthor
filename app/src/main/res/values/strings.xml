@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">The Author</string>
+    <string name="holder_author">L.R Stine</string>
+    <string name="holder_title">Goosebumps</string>
+    <string name="place_holder_info">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+    sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</string>
+    <string name="th_view_more">View More</string>
+    <string name="th_heading">enter a book name to display the author and other info.</string>
+    <string name="th_search_result">Search Result</string>
+</resources>
