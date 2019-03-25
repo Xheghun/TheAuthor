@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.util.List;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -35,23 +33,20 @@ public class BookListRequest {
                 .build();
 
         BooksApi booksApi = retrofit.create(BooksApi.class);
-       Call<List<Example>> call = booksApi.getBooks(mQuery, "items/volumeInfo");
+       Call<BookList> call = booksApi.getBooks(mQuery, "items/volumeInfo");
        Log.v("QUERY", mQuery + "  is the query");
-       call.enqueue(new Callback<List<Example>>() {
+       call.enqueue(new Callback<BookList>() {
             @Override
-            public void onResponse(Call<List<Example>> call, Response<List<Example>> response) {
+            public void onResponse(Call<BookList> call, Response<BookList> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(context, String.valueOf(response.body()), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                List<Example> books = response.body();
-                for (Example book : books) {
-
-                }
+                BookList books = response.body();
             }
 
             @Override
-            public void onFailure(Call<List<Example>> call, Throwable t) {
+            public void onFailure(Call<BookList> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(context,t.getMessage(), Toast.LENGTH_LONG).show();
             }

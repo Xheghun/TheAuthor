@@ -13,9 +13,11 @@ import android.widget.Toast;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.xheghun.theauthor.network.BookList;
 import com.xheghun.theauthor.network.BooksApi;
-import com.xheghun.theauthor.network.Example;
+import com.xheghun.theauthor.network.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.RequiresApi;
@@ -42,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
     MaterialButton searchButton;
     TextView searchResultText;
     boolean visible;
-    private List<Example> books;
+    private List<Item> items = null;
+    private BookList books;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
         final ViewGroup container = findViewById(R.id.main_activity_container);
         searchResultText = findViewById(R.id.th_search_result);
         queryText = findViewById(R.id.query);
+        layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView = findViewById(R.id.th_book_rc);
         queryTextLayout = findViewById(R.id.query_layout);
         searchButton = findViewById(R.id.search_button);
@@ -62,18 +66,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (isValid(queryText.getText())) {
-                    String query = String.valueOf(queryText.getText());
-                      /* BookListRequest request = new BookListRequest(MainActivity.this,query);
-                       request.makeRequest();*/
-                    makeRequest();
                     visible = !visible;
                     searchResultText.setVisibility(visible ? View.VISIBLE : View.GONE);
+                    items = new ArrayList<>();
+                    recyclerView.setHasFixedSize(true);
+                    recyclerView.setLayoutManager(layoutManager);
+                    adapter = new BookListAdapter(MainActivity.this, items);
+                    recyclerView.setAdapter(adapter);
+                    makeRequest();
+
                 }
 
-                layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-                recyclerView.setHasFixedSize(true);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(new BookListAdapter(MainActivity.this, books));
+
             }
         });
 
@@ -94,20 +98,28 @@ public class MainActivity extends AppCompatActivity {
 
         BooksApi booksApi = retrofit.create(BooksApi.class);
         String mQuery = String.valueOf(queryText.getText());
-        Call<List<Example>> call = booksApi.getBooks(mQuery, "items/volumeInfo");
+        Call<BookList> call = booksApi.getBooks(mQuery, "items/volumeInfo");
         Log.v("QUERY", mQuery + "  is the query");
-        call.enqueue(new Callback<List<Example>>() {
+        call.enqueue(new Callback<BookList>() {
             @Override
-            public void onResponse(Call<List<Example>> call, Response<List<Example>> response) {
+            public void onResponse(Call<BookList> call, Response<BookList> response) {
                 if (!response.isSuccessful()) {
                     Toast.makeText(MainActivity.this, String.valueOf(response.body()), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 books = response.body();
+                if (items != null) {
+                    items.clear();
+                    items.addAll(books.getItems());
+                }
+                if (adapter != null) {
+                    adapter.notifyDataSetChanged();
+                }
+
             }
 
             @Override
-            public void onFailure(Call<List<Example>> call, Throwable t) {
+            public void onFailure(Call<BookList> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }

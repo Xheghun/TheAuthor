@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
-import com.xheghun.theauthor.network.Example;
+import com.xheghun.theauthor.network.Item;
 
 import java.util.List;
 
@@ -18,9 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class BookListAdapter extends RecyclerView.Adapter<BookViewHolder>{
     private Context context;
-    private List<Example> list;
+    private List<Item> list;
 
-    public BookListAdapter(Context context, List<Example> list) {
+    public BookListAdapter(Context context, List<Item> list) {
         this.context = context;
         this.list = list;
     }
@@ -35,7 +35,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
         if (list != null) {
-            Example book = list.get(position);
+            Item book = list.get(position);
             holder.bookAuthor.setText(book.getVolumeInfo().getAuthors().toString());
             holder.bookTitle.setText(book.getVolumeInfo().getTitle());
             Glide.with(context).load(book.getVolumeInfo().getImageLinks().getThumbnail()).into(holder.bookImage);
@@ -44,7 +44,9 @@ public class BookListAdapter extends RecyclerView.Adapter<BookViewHolder>{
 
     @Override
     public int getItemCount() {
-        return 0;
+        if (list != null)
+            return list.size();
+        else return 0;
     }
 }
 class BookViewHolder extends RecyclerView.ViewHolder {
@@ -52,6 +54,7 @@ class BookViewHolder extends RecyclerView.ViewHolder {
     TextView bookAuthor;
     TextView bookTitle;
     MaterialButton viewMoreButton;
+
     public BookViewHolder(@NonNull View itemView) {
         super(itemView);
         bookImage = itemView.findViewById(R.id.book_image);

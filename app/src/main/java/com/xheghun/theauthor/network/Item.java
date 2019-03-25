@@ -18,9 +18,4 @@ public class Item {
         this.volumeInfo = volumeInfo;
     }
 
-    public Item withVolumeInfo(VolumeInfo volumeInfo) {
-        this.volumeInfo = volumeInfo;
-        return this;
-    }
-
 }
