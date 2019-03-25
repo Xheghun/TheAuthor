@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.xheghun.theauthor.BookInfo;
-
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -37,23 +35,23 @@ public class BookListRequest {
                 .build();
 
         BooksApi booksApi = retrofit.create(BooksApi.class);
-       Call<List<BookInfo>> call = booksApi.getBooks(mQuery, "items/volumeInfo");
+       Call<List<Example>> call = booksApi.getBooks(mQuery, "items/volumeInfo");
        Log.v("QUERY", mQuery + "  is the query");
-        call.enqueue(new Callback<List<BookInfo>>() {
+       call.enqueue(new Callback<List<Example>>() {
             @Override
-            public void onResponse(Call<List<BookInfo>> call, Response<List<BookInfo>> response) {
+            public void onResponse(Call<List<Example>> call, Response<List<Example>> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context, String.valueOf(response.code()) + " " + String.valueOf(response.body()), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, String.valueOf(response.body()), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                List<BookInfo> books = response.body();
-                for (BookInfo book: books) {
+                List<Example> books = response.body();
+                for (Example book : books) {
 
                 }
             }
 
             @Override
-            public void onFailure(Call<List<BookInfo>> call, Throwable t) {
+            public void onFailure(Call<List<Example>> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(context,t.getMessage(), Toast.LENGTH_LONG).show();
             }

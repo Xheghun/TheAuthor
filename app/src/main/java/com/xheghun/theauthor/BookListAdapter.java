@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 import com.xheghun.theauthor.network.Example;
-import com.xheghun.theauthor.network.ImageLinks;
 
 import java.util.List;
 
@@ -19,10 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class BookListAdapter extends RecyclerView.Adapter<BookViewHolder>{
     private Context context;
-    private List<BookInfo> list;
-    private List<ImageLinks> links;
+    private List<Example> list;
 
-    public BookListAdapter(Context context, List<BookInfo> list) {
+    public BookListAdapter(Context context, List<Example> list) {
         this.context = context;
         this.list = list;
     }
@@ -37,12 +35,10 @@ public class BookListAdapter extends RecyclerView.Adapter<BookViewHolder>{
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
         if (list != null) {
-            BookInfo book = list.get(position);
-            ImageLinks imageLinks = links.get(position);
-            Example example = new Example();
-            holder.bookAuthor.setText(book.getPublisher());
-            holder.bookTitle.setText(book.getTitle());
-            Glide.with(context).load(book.getImageLinks().getThumbnail()).into(holder.bookImage);
+            Example book = list.get(position);
+            holder.bookAuthor.setText(book.getVolumeInfo().getAuthors().toString());
+            holder.bookTitle.setText(book.getVolumeInfo().getTitle());
+            Glide.with(context).load(book.getVolumeInfo().getImageLinks().getThumbnail()).into(holder.bookImage);
         }
     }
 
