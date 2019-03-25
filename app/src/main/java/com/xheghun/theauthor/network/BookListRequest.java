@@ -8,6 +8,8 @@ import com.xheghun.theauthor.BookInfo;
 
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -23,14 +25,19 @@ public class BookListRequest {
         mQuery = query;
     }
    public void makeRequest() {
+
+       HttpLoggingInterceptor logger = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+
+       OkHttpClient.Builder okHttp = new OkHttpClient.Builder().addInterceptor(logger);
        String BASE_URL = "https://www.googleapis.com";
        final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+               .client(okHttp.build())
                 .build();
 
         BooksApi booksApi = retrofit.create(BooksApi.class);
-       Call<List<BookInfo>> call = booksApi.getBooks(mQuery, "item/volumeInfo");
+       Call<List<BookInfo>> call = booksApi.getBooks(mQuery, "items/volumeInfo");
        Log.v("QUERY", mQuery + "  is the query");
         call.enqueue(new Callback<List<BookInfo>>() {
             @Override
