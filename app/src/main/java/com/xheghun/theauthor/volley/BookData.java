@@ -1,25 +1,8 @@
 package com.xheghun.theauthor.volley;
 
-import android.content.Context;
-import android.widget.Toast;
-
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.xheghun.theauthor.BookInfo;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
 public class BookData {
 
 /*
-
     Context context;
     ArrayList<BookInfo> books = new ArrayList<>();
 
@@ -29,7 +12,7 @@ public class BookData {
     }
 
     private String mQuery;
-    // Base URL for Books API.
+     Base URL for Books API.
 
     public ArrayList<BookInfo> getBooks() {
         String BOOK_BASE_URL = "https://www.googleapis.com/books/v1/volumes?q="+mQuery;

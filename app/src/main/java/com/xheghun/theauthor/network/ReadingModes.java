@@ -8,24 +8,24 @@ public class ReadingModes {
 
     @SerializedName("text")
     @Expose
-    private Boolean text;
+    private boolean text;
     @SerializedName("image")
     @Expose
-    private Boolean image;
+    private boolean image;
 
-    public Boolean getText() {
+    public boolean isText() {
         return text;
     }
 
-    public void setText(Boolean text) {
+    public void setText(boolean text) {
         this.text = text;
     }
 
-    public Boolean getImage() {
+    public boolean isImage() {
         return image;
     }
 
-    public void setImage(Boolean image) {
+    public void setImage(boolean image) {
         this.image = image;
     }
 

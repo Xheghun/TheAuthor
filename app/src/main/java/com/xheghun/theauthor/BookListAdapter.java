@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
-import com.xheghun.theauthor.volley.Example;
-import com.xheghun.theauthor.volley.ImageLinks;
+import com.xheghun.theauthor.network.Example;
+import com.xheghun.theauthor.network.ImageLinks;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookViewHolder>{
             Example example = new Example();
             holder.bookAuthor.setText(book.getPublisher());
             holder.bookTitle.setText(book.getTitle());
-           Glide.with(context).load(imageLinks.getSmallThumbnail()).into(holder.bookImage);
+            Glide.with(context).load(book.getImageLinks().getThumbnail()).into(holder.bookImage);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.xheghun.theauthor.network;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.xheghun.theauthor.BookInfo;
@@ -22,23 +23,25 @@ public class BookListRequest {
         mQuery = query;
     }
    public void makeRequest() {
-        String BASE_URL = "https://www.googleapis.com/books/v1/";
-        Retrofit retrofit = new Retrofit.Builder()
+       String BASE_URL = "https://www.googleapis.com";
+       final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         BooksApi booksApi = retrofit.create(BooksApi.class);
-        Call<List<BookInfo>> call = booksApi.getBooks(mQuery,"item");
+       Call<List<BookInfo>> call = booksApi.getBooks(mQuery, "item/volumeInfo");
+       Log.v("QUERY", mQuery + "  is the query");
         call.enqueue(new Callback<List<BookInfo>>() {
             @Override
             public void onResponse(Call<List<BookInfo>> call, Response<List<BookInfo>> response) {
                 if (!response.isSuccessful()) {
-                    Toast.makeText(context, String.valueOf(response.code()), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, String.valueOf(response.code()) + " " + String.valueOf(response.body()), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 List<BookInfo> books = response.body();
                 for (BookInfo book: books) {
+
                 }
             }
 

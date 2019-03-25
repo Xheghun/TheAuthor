@@ -1,21 +1,31 @@
 
 package com.xheghun.theauthor.network;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class VolumeInfo {
 
     @SerializedName("title")
     @Expose
     private String title;
+    @SerializedName("subtitle")
+    @Expose
+    private String subtitle;
+    @SerializedName("authors")
+    @Expose
+    private List<String> authors = null;
     @SerializedName("publisher")
     @Expose
     private String publisher;
     @SerializedName("publishedDate")
     @Expose
     private String publishedDate;
+    @SerializedName("description")
+    @Expose
+    private String description;
     @SerializedName("industryIdentifiers")
     @Expose
     private List<IndustryIdentifier> industryIdentifiers = null;
@@ -24,19 +34,31 @@ public class VolumeInfo {
     private ReadingModes readingModes;
     @SerializedName("pageCount")
     @Expose
-    private Integer pageCount;
+    private int pageCount;
     @SerializedName("printType")
     @Expose
     private String printType;
+    @SerializedName("categories")
+    @Expose
+    private List<String> categories = null;
+    @SerializedName("averageRating")
+    @Expose
+    private float averageRating;
+    @SerializedName("ratingsCount")
+    @Expose
+    private int ratingsCount;
     @SerializedName("maturityRating")
     @Expose
     private String maturityRating;
     @SerializedName("allowAnonLogging")
     @Expose
-    private Boolean allowAnonLogging;
+    private boolean allowAnonLogging;
     @SerializedName("contentVersion")
     @Expose
     private String contentVersion;
+    @SerializedName("panelizationSummary")
+    @Expose
+    private PanelizationSummary panelizationSummary;
     @SerializedName("imageLinks")
     @Expose
     private ImageLinks imageLinks;
@@ -61,6 +83,22 @@ public class VolumeInfo {
         this.title = title;
     }
 
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
+    }
+
+    public List<String> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<String> authors) {
+        this.authors = authors;
+    }
+
     public String getPublisher() {
         return publisher;
     }
@@ -75,6 +113,14 @@ public class VolumeInfo {
 
     public void setPublishedDate(String publishedDate) {
         this.publishedDate = publishedDate;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<IndustryIdentifier> getIndustryIdentifiers() {
@@ -93,11 +139,11 @@ public class VolumeInfo {
         this.readingModes = readingModes;
     }
 
-    public Integer getPageCount() {
+    public int getPageCount() {
         return pageCount;
     }
 
-    public void setPageCount(Integer pageCount) {
+    public void setPageCount(int pageCount) {
         this.pageCount = pageCount;
     }
 
@@ -109,6 +155,30 @@ public class VolumeInfo {
         this.printType = printType;
     }
 
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
+
+    public float getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(float averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public int getRatingsCount() {
+        return ratingsCount;
+    }
+
+    public void setRatingsCount(int ratingsCount) {
+        this.ratingsCount = ratingsCount;
+    }
+
     public String getMaturityRating() {
         return maturityRating;
     }
@@ -117,11 +187,11 @@ public class VolumeInfo {
         this.maturityRating = maturityRating;
     }
 
-    public Boolean getAllowAnonLogging() {
+    public boolean isAllowAnonLogging() {
         return allowAnonLogging;
     }
 
-    public void setAllowAnonLogging(Boolean allowAnonLogging) {
+    public void setAllowAnonLogging(boolean allowAnonLogging) {
         this.allowAnonLogging = allowAnonLogging;
     }
 
@@ -131,6 +201,14 @@ public class VolumeInfo {
 
     public void setContentVersion(String contentVersion) {
         this.contentVersion = contentVersion;
+    }
+
+    public PanelizationSummary getPanelizationSummary() {
+        return panelizationSummary;
+    }
+
+    public void setPanelizationSummary(PanelizationSummary panelizationSummary) {
+        this.panelizationSummary = panelizationSummary;
     }
 
     public ImageLinks getImageLinks() {
@@ -172,5 +250,4 @@ public class VolumeInfo {
     public void setCanonicalVolumeLink(String canonicalVolumeLink) {
         this.canonicalVolumeLink = canonicalVolumeLink;
     }
-
 }
